@@ -73,9 +73,11 @@ class Model(object):
         print(f"Processing s_expression")
 
         data = eo_snuggs.eval(s_expression, **self.ctx)
+
         if data.min() >= 0 and data.max() <= 1:
             return (data * 255).astype(int)
-
+        elif data.shape[2] == 3:
+            return data
         else:  # x = data.reshape(data.shape[0] * data.shape[1])
             _sc = Normalizer()
             _sc.fit_transform(data)
@@ -124,8 +126,8 @@ def load_ctx(items, roi):
 # View and controller
 
 model = Model(
-    items = ["https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2A_10TFK_20220524_0_L2A",
-             "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A"
+    items = ["https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A",
+             "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210901_0_L2A"
              ], roi=[1000, 1000, 6000, 4500]
 )
 

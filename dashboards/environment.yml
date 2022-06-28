@@ -1,0 +1,7 @@
+name: env_dashboard
+channels:
+- conda-forge
+- terradue
+dependencies:
+  - streamlit
+  - eo-snuggs

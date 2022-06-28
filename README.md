@@ -36,7 +36,15 @@ Post-event acquisition false-colour RGB composite
 
 ### Change detection
 
+#### Change Vector Analysis
 
 ```
 (threshold_otsu (cva (standardization (asarray red1 green1 blue1 nir1)) (standardization (asarray red2 green2 blue2 nir2))))
+```
+
+#### k-means classification 
+
+
+```
+(kmeans 5 (asarray red1 green1 blue1 nir1 red2 green2 blue2 nir2 (pca 1 (asarray red1 green1 blue1 nir1 red2 green2 blue2 nir2)) (pca 2 (asarray red1 green1 blue1 nir1 red2 green2 blue2 nir2)) (pca 3 (asarray red1 green1 blue1 nir1 red2 green2 blue2 nir2))))
 ```

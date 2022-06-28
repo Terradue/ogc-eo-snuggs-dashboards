@@ -73,16 +73,19 @@ class Model(object):
         print(f"Processing s_expression")
 
         data = eo_snuggs.eval(s_expression, **self.ctx)
-
+        
+        print(data.shape)
         if data.min() >= 0 and data.max() <= 1:
             return (data * 255).astype(int)
-        elif data.shape[2] == 3:
+        elif len(data.shape) == 3 and data.shape[2] == 3:
             return data
+        elif len(data.shape) == 2:
+            return data * 50
         else:  # x = data.reshape(data.shape[0] * data.shape[1])
             _sc = Normalizer()
             _sc.fit_transform(data)
             return (_sc.transform(data).reshape(data.shape) * 255).astype(int)
-
+            
     def check_expression(self, expression):
 
         with snuggs.ctx(**self.ctx):
